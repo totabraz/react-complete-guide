@@ -1,0 +1,38 @@
+=========================================
+################ RADIUM  ################
+How to install it and what is it?
+=========================================
+npm install --save radium
+
+Popular package allow us to use media queries and
+selectors on javascript files.
+
+=========================================
+########## USAGE :HOVER ##########
+=========================================
+const style = {
+    backgroundColor: "green",
+    ':hover': {
+        backgroundColor: "lightGreen",
+    }
+};
+
+=========================================
+########## USAGE MEDIA QUERIES ##########
+!!!!! in the root component, as App.js.
+=========================================
+import Radium, { StyleRoot } from 'radium';
+....  
+return ( 
+    <StyleRoot >
+        ....
+    
+    </StyleRoot>
+);
+
+==========================================
+########## IF FAILED TO COMPLIE ##########
+==========================================
+1. Remove package-lock.json file.
+2. Run npm install command.
+3. Try to execute npm start again.
