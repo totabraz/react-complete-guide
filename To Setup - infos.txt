@@ -1,0 +1,10 @@
+=============================================
+################ module.css  ################
+    How to install it and what is it?
+=============================================
+"I needed to rename the css to 'App.module.css' file and the import in .js files."
+
+CSS Modules are turned on for files ending with the .module.css extension.
+
+
+
