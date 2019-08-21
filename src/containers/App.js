@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classes from './App.module.css';
-import Person from './components/Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
+import { tsMethodSignature } from '@babel/types';
 
 class App extends Component {
     state = {
@@ -40,47 +42,22 @@ class App extends Component {
     }
     
     render() {
-
-        const style = {
-            backgroundColor: "green",
-            font:  'inherit',
-            border: "1px solid blue",
-            padding: '8px',
-            cursor: "pointer",
-        };
-
         let persons = null;
-
         if (this.state.showPersons) {
-            persons = (
-                <div>
-                    {this.state.persons.map((person, index) => {
-                        return <Person
-                            click={() => this.deletePersonHandler(index)}
-                            name={person.name}
-                            key={person.id}
-                            age={person.age}
-                            changed={(event) => this.nameChangedHandler(event, person.id)} />
-                    })}
-                </div>
-            );
-            style.backgroundColor = 'red';
+            persons = <Persons 
+                persons={this.state.persons}
+                click={this.deletePersonHandler}
+                changed={this.nameChangedHandler}/>;   
         }
-        const assignedClasses = [];
-        if (this.state.persons.length <= 2 ){
-            assignedClasses.push( classes.red );
-        } 
-        if (this.state.persons.length <= 1 ){
-            assignedClasses.push( classes.bold );
-        } 
-
+       
         return ( 
             <div className={classes.App}>
-                <h1>Hi, I'm a React App</h1>
-                <p className={assignedClasses.join(' ')} >And this is a subtitle</p>
-                <button style={style} onClick={this.togglePersonsHandler}>Switch Names</button>    
+                <Cockpit
+                    clicked={this.togglePersonsHandler}
+                    showPersons={true}
+                    persons={this.state.persons}/>
                 {persons}
-            </div>
+            </div> 
         );
     }
 }
