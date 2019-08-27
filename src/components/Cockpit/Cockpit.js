@@ -4,11 +4,20 @@
  * 2.a place where cockfights are held.
  */
 
-import React from 'react';
+import React , { useEffect }from 'react';
 import classes from './cockpit.module.css';
 
-const cockpit = (props) => {
-    
+const Cockpit = (props) => {
+
+    useEffect(() => {
+        console.log('[Cockpit.js] useEffect');
+        // or a HTTP request for example..
+        setTimeout(() => {
+            alert('Tete');
+        }, 1000);
+    }, []);
+
+
     const assignedClasses = [];
     let btnClass = '';    
     if (props.showPerson) {
@@ -33,4 +42,4 @@ const cockpit = (props) => {
 }
 
 
-export default cockpit;
+export default Cockpit;

@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import classes from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import { tsMethodSignature } from '@babel/types';
 
 class App extends Component {
+    constructor (props){ 
+        super (props);
+        console.log('[App.JS] Constructor' + props)
+    }
+
     state = {
         persons : [
             { id:"id1", name: "João", age:28 },
@@ -15,6 +19,20 @@ class App extends Component {
         showPersons: false
     }
     
+    static getDerivedStateFromProps(props, state) {
+        console.log('[App.JS] getDerivedStateFromProps', props);
+        return state;
+    }
+
+    componentWillount() {
+        console.log('[App.JS] componentWillount');
+    }
+
+
+    componentDidMount() {
+        console.log('[App.JS] componentDidMount');
+    }
+
     nameChangedHandler = (event, id) => {
         const personIndex = this.state.persons.findIndex(p => {
             return p.id === id
@@ -42,6 +60,7 @@ class App extends Component {
     }
     
     render() {
+        console.log('[App.js] render');
         let persons = null;
         if (this.state.showPersons) {
             persons = <Persons 
