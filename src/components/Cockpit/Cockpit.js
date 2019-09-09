@@ -15,8 +15,24 @@ const Cockpit = (props) => {
         setTimeout(() => {
             alert('Tete');
         }, 1000);
-    }, []);
 
+        // It runs BEFORE the main useEffect function runs, but AFTER the (first) erender cycle
+        return ()  => {
+            console.log('[Cockpit.js] cleanup work in  useEffect');
+        }
+    }, []);
+    // to change every moment a the stae of persons change
+    // }, [props.persons]);
+    // and you can change for many conditions
+    // }, [props.persons, a, b , ...]);
+
+    useEffect(() => {
+        console.log('[Cockpit.js 2nd] useEffect');
+        return () => {
+            console.log('[Cockpit.js 2nd] cleanup work in  useEffect');
+
+        };
+    });
 
     const assignedClasses = [];
     let btnClass = '';    
