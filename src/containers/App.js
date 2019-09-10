@@ -50,12 +50,12 @@ class App extends Component {
     }
 
     togglePersonsHandler = () => {
-        const status = this.state.showPersons;;
-        this.setState({showPersons : !status });
+        const status = this.state.showPersons;
+        this.setState({showPersons:!status});
     }
     
     deletePersonHandler = (personIndex) => {
-        const person = [...this.state.persons];;
+        const person = [...this.state.persons];
         person.splice(personIndex, 1)
         this.setState ({ persons : person})
     }
@@ -72,13 +72,18 @@ class App extends Component {
        
         return ( 
             <div className={classes.App}>
-                <button onClick={() => this.setState({ showCockpit: false}) } >Remove Cockpit</button>
-                {this.state.showCockpit ? <Cockpit
-                    title={this.props.appTitle}
-                    clicked={this.togglePersonsHandler}
-                    showPersons={true}
-                    persons={this.state.persons}/>
-                : null}
+                <button onClick={() => {
+                    this.setState({ showCockpit: false}); 
+                    }} >
+                        Remove Cockpit
+                        </button>
+                {this.state.showCockpit ?
+                    <Cockpit
+                        title={this.props.appTitle}
+                        clicked={this.togglePersonsHandler}
+                        showPersons={true}
+                        personsLenght={this.state.persons.lenght}/>
+                    : null }
                 {persons}
             </div> 
         );

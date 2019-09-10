@@ -7,16 +7,23 @@ class Persons extends Component {
     //     return state;
     // }
 
-    shouldComponentUpdate(props, state) {
-        console.log('[Persons.js] getDerivedStateFromProps')
-        return true;
-    }
-
     getSnapshotBeforeUpdate (prevProps, nextState) {
         console.log('[Persons.js] getSnapshotBeforeUpdate')
 
     }
+    componentDidUpdate(prevProps, nextState) {
+        console.log('[Persons.js] componentDidUpdate')
 
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('[Persons.js] getDerivedStateFromProps')
+        if (nextProps.persons !== this.props.persons){
+            return true;
+        } else {
+            return false;
+        }
+        // return true;
+    }
     render(){
         console.log('[Persons.js] rendering...');
         return this.props.persons.map((person, index) => {

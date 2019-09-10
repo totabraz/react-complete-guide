@@ -12,12 +12,13 @@ const Cockpit = (props) => {
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         // or a HTTP request for example..
-        setTimeout(() => {
-            alert('Tete');
+        const timer = setTimeout(() => {
+            // alert('Tete');
         }, 1000);
 
         // It runs BEFORE the main useEffect function runs, but AFTER the (first) erender cycle
         return ()  => {
+            clearTimeout(timer);
             console.log('[Cockpit.js] cleanup work in  useEffect');
         }
     }, []);
@@ -39,10 +40,10 @@ const Cockpit = (props) => {
     if (props.showPerson) {
         btnClass = classes.Red;
     }
-    if (props.persons.length <= 2 ){
+    if (props.personsLength <= 2 ){
         assignedClasses.push( classes.red );
     } 
-    if (props.persons.length <= 1 ){
+    if (props.personsLength <= 1 ){
         assignedClasses.push( classes.bold );
     } 
 
@@ -57,5 +58,6 @@ const Cockpit = (props) => {
     );
 }
 
-
-export default Cockpit;
+/// Memo -> not update component every moment. 
+// React.memo(...) is a great way to optimization functions components , and wrap to may not update it every moment
+export default React.memo(Cockpit);
