@@ -43,6 +43,7 @@
     "postcss-normalize": "7.0.1",
     "postcss-preset-env": "6.6.0",
     "postcss-safe-parser": "4.0.1",
+    "prop-type": "0.0.1",
     "radium": "^0.25.2",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.1",
