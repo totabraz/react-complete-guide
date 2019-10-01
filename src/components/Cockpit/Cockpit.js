@@ -4,13 +4,14 @@
  * 2.a place where cockfights are held.
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import classes from './cockpit.module.css';
-import authContext from "../../context/auth-context";
+import AuthContext from "../../context/auth-context";
 
 const Cockpit = (props) => {
 
     const toggleBtnRef = useRef(null);
+    const authContext = useContext(AuthContext);
 
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
@@ -58,9 +59,7 @@ const Cockpit = (props) => {
                 ref={toggleBtnRef}
                 className={btnClass}
                 onClick={props.clicked}>Switch Names</button>
-            <authContext.Consumer>
-                {context => <button onClick={context.login}>Log In</button>}
-            </authContext.Consumer>
+              <button onClick={authContext.login}>Log In</button>
         </div>
     );
 }
