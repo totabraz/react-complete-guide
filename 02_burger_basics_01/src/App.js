@@ -2,7 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Layout from '../src/components/Layout/Layouts';
+
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import Layout from './containers/Layout/Layouts';
 
 function App() {
   return (
@@ -22,7 +24,7 @@ function App() {
         </a>
       </header> */}
       <Layout>
-        <p>Teste</p> 
+        <BurgerBuilder/> 
       </Layout>
     </div>
   );
