@@ -66,3 +66,20 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+
+1 carne
+1 queijo 
+1.4 + 3 = 4.4
+
+
+
+1cal
+1 carne
+2 queijo 
+1.4 + 5.5 =- 7
+
+6 queijo 
+
+4,2
