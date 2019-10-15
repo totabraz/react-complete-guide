@@ -4,14 +4,10 @@
  * 2.a place where cockfights are held.
  */
 
-import React, { useEffect, useRef, useContext } from 'react';
+import React , { useEffect }from 'react';
 import classes from './cockpit.module.css';
-import AuthContext from "../../context/auth-context";
 
 const Cockpit = (props) => {
-
-    const toggleBtnRef = useRef(null);
-    const authContext = useContext(AuthContext);
 
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
@@ -19,9 +15,9 @@ const Cockpit = (props) => {
         const timer = setTimeout(() => {
             // alert('Tete');
         }, 1000);
-        toggleBtnRef.current.click();
+
         // It runs BEFORE the main useEffect function runs, but AFTER the (first) erender cycle
-        return () => {
+        return ()  => {
             clearTimeout(timer);
             console.log('[Cockpit.js] cleanup work in  useEffect');
         }
@@ -40,26 +36,24 @@ const Cockpit = (props) => {
     });
 
     const assignedClasses = [];
-    let btnClass = '';
+    let btnClass = '';    
     if (props.showPerson) {
         btnClass = classes.Red;
     }
-    if (props.personsLength <= 2) {
-        assignedClasses.push(classes.red);
-    }
-    if (props.personsLength <= 1) {
-        assignedClasses.push(classes.bold);
-    }
+    if (props.personsLength <= 2 ){
+        assignedClasses.push( classes.red );
+    } 
+    if (props.personsLength <= 1 ){
+        assignedClasses.push( classes.bold );
+    } 
 
     return (
         <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')} >And this is a subtitle</p>
             <button
-                ref={toggleBtnRef}
                 className={btnClass}
-                onClick={props.clicked}>Switch Names</button>
-              <button onClick={authContext.login}>Log In</button>
+                onClick={props.clicked}>Switch Names</button> 
         </div>
     );
 }

@@ -7,7 +7,7 @@ class Persons extends PureComponent {
     //     return state;
     // }
 
-    getSnapshotBeforeUpdate(prevProps, nextState) {
+    getSnapshotBeforeUpdate (prevProps, nextState) {
         console.log('[Persons.js] getSnapshotBeforeUpdate')
 
     }
@@ -15,22 +15,28 @@ class Persons extends PureComponent {
         console.log('[Persons.js] componentDidUpdate')
 
     }
-    
-    render() {
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('[Persons.js] getDerivedStateFromProps')
+        if (nextProps.persons !== this.props.persons){
+            return true;
+        } else {
+            return false;
+        }
+        // return true;
+    }
+    render(){
         console.log('[Persons.js] rendering...');
         return this.props.persons.map((person, index) => {
             return (
-                <Person
-                    click={() => this.props.click(index)}
-                    name={person.name}
-                    key={person.id}
-                    age={person.age}
-                    changed={(event) => this.props.changed(event, person.id)}
-                    isAuth={this.props.isAuthenticated}
-                />
+            <Person
+                click={() => this.props.click(index)}
+                name={person.name}
+                key={person.id}
+                age={person.age}
+                changed={(event) => this.props.changed(event, person.id)} 
+            />
             );
         });
     }
 }
-
 export default Persons;
