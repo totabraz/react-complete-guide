@@ -93,6 +93,7 @@ class BurgerBuilder extends Component {
         const disableInfo = {
             ...this.state.ingredients
         }
+        
         for (let key in disableInfo){
             disableInfo[key] = disableInfo[key] <= 0
         }
