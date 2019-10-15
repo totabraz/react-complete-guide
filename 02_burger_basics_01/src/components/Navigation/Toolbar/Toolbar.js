@@ -5,10 +5,12 @@ import Logo from '../../Logo/Logo'
 
 const toolbar = (props) => (
     <header className={classes.Toolbar}>
-        <NavigationItems/>
-        <Logo/>
-        <nav>
-           ...
+        <div>MENU</div>
+        <div className={classes.Logo}>
+            <Logo/>
+        </div>
+        <nav className={classes.DesktopOnly}>
+            <NavigationItems/>
         </nav>
     </header>
 );
