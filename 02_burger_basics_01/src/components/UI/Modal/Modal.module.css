@@ -12,7 +12,7 @@
     transition: all 0.3s ease-out;
 }
 
-.Modal ul li{
+.Modal ul li, .Modal p{
     text-align: left;
 }
 
