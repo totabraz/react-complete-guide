@@ -4,7 +4,7 @@ import './App.css';
 
 
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
-import Layout from './components/Layout/Layouts';
+import Layout from './hoc/Layout/Layout'
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
           Learn React
         </a>
       </header> */}
+
       <Layout>
         <BurgerBuilder/> 
       </Layout>
