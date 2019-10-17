@@ -12,6 +12,7 @@ class Blog extends Component {
         this.state = {
             posts: [],
             selectPostID: null,
+            errorRequest: null
         }
     }
     
@@ -19,7 +20,7 @@ class Blog extends Component {
         // axios.get('https://jsonplaceholder.typicode.com/posts')
         // axios uses promisses 
         // so, asynchronous functions 
-        axios.get('https://jsonplaceholder.typicode.com/posts')
+        axios.get('/posts/')
             .then( response => {
 
                 // Slice the array to 4 posts
@@ -40,6 +41,9 @@ class Blog extends Component {
 
                 this.setState({posts: updatePosts})
             })
+            .catch(error => {
+                this.setState({errorRequest : true})
+            })
     }
 
     postClickedHandler = (postID) => {
@@ -47,13 +51,17 @@ class Blog extends Component {
     }
 
     render () {
-        const posts = this.state.posts.map( post => {
+        let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>
+
+        if (!this.state.errorRequest) {
+            posts = this.state.posts.map( post => {
             return <Post
                 key={post.id}
                 title={post.title}
                 author={post.author}
                 clicked={() => this.postClickedHandler(post.id)}/>;
-        });
+            });
+        }
 
         return (
             <div>
