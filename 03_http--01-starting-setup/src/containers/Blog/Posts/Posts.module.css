@@ -5,3 +5,16 @@
     width: 100%;
     margin: auto;
 }
+
+.Posts  > a {
+    list-style: none;
+    text-decoration: none;
+    color: inherit;
+    width: 50%;
+    display: flex;
+
+}
+
+.Posts  > a > .Post{
+    width: 100%;
+}

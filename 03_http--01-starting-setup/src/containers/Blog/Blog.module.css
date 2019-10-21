@@ -23,7 +23,7 @@
     text-decoration: none;
 }
 
-.Blog a.active,
+.Blog a.my-active,
 .Blog a:hover,
 .Blog a:active{
     color: #f36e16;

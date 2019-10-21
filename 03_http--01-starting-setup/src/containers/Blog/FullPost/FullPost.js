@@ -14,12 +14,14 @@ class FullPost extends Component {
 
     // Its a good pratice use componentDidUpdate() to fetch new data
     // Because it will update only when receave new props
-    componentDidUpdate = () => {
-        if (this.props.id){
-            if ( !this.state.loadedPost || (this.state.loadedPost.id !== this.props.id)){
-                axios.get('/posts/'+ this.props.id)
+    componentDidMount = () => {
+        console.log(this.props.match.params.id)
+        
+        if (this.props.match.params.id ){
+            if ( !this.state.loadedPost || (this.state.loadedPost.id !== this.props.match.params.id)){
+                axios.get('/posts/'+ this.props.match.params.id)
                 .then( response => {
-                    this.setState({loadedPost:response.data, lastID:this.props.id})
+                    this.setState({loadedPost:response.data, lastID:this.props.match.params.id})
                 })
             }
         }
@@ -28,7 +30,7 @@ class FullPost extends Component {
     deletePostHandler = () => {
         
 
-        axios.delete('/posts/' + this.props.id)
+        axios.delete('/posts/' + this.props.match.params.id)
             .then(response => {
                 console.log(response)
             })
@@ -36,7 +38,7 @@ class FullPost extends Component {
     
     render () {
         let post = <p style={{textAlign: 'center'}}> <strong>Please select a Post!</strong></p>;
-        if (this.props.id) {
+        if (this.props.match.params.id) {
             post = <p style={{textAlign: 'center'}}> <strong>Loading!</strong></p>
         }
         if (this.state.loadedPost){
