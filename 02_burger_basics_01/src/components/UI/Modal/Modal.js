@@ -7,7 +7,7 @@ class Modal extends Component {
     // Better performace
     // don't expend time rendering if not update
     shouldComponentUpdate(nextProp, nextState)  {
-        return  (nextProp.show !== this.props.show);
+        return  ((nextProp.show !== this.props.show) || (nextProp.children !== this.props.children)) ;
     }
 
     componentDidUpdate(){
