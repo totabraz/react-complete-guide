@@ -8,7 +8,7 @@ class NewPost extends Component {
         title: '',
         content: '',
         author: 'Tota',
-        submitted: false
+        // submitted: false
     }
 
     componentDidMount = () => {
@@ -24,15 +24,15 @@ class NewPost extends Component {
         axios.post('/posts', postToSend )
             .then(response => {
                 console.log(response)
-                this.setState({submitted : true})
-
+                // this.setState({submitted : true})
+                this.props.history.push("/posts")
             })
     }
     render () {
-        let redirect = (this.state.submitted)? <Redirect to="/posts"/> : null;
+        // let redirect = (this.state.submitted)? <Redirect to="/posts"/> : null;
         return (
             <div className="NewPost">
-                {redirect}
+                {/* {redirect} */}
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />
