@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, NavLink, Switch } from "react-router-dom";
+import { Route, NavLink, Switch, Redirect } from "react-router-dom";
 // import axios from "axios";
   
 import Posts from './Posts/Posts'
@@ -39,7 +39,7 @@ class Blog extends Component {
                                 }}>New Posts</NavLink></li>
                         </ul>
                     </nav>
-                </header>
+                </header> 
                 {/*
                 <Route path="/" exact render={ () => {
                     return(
@@ -58,6 +58,11 @@ class Blog extends Component {
                 <Switch>
                     <Route path="/new-post/"  exact component={NewPost}/>
                     <Route path="/posts/"  component={Posts}/>
+                    {/* 
+                        You can do it, or use Redirect Component
+                        <Route path="/"  component={Posts}/> 
+                    */}
+                    <Redirect from="/" to="/posts/"  component={Posts}/>
                 </Switch>
 
             </div>
