@@ -5,7 +5,9 @@ import Blog from './containers/Blog/Blog';
 class App extends Component {
   render() {
     return (
-        <BrowserRouter>
+        // Basename, to correct the URL dir on server.
+        // <BrowserRouter basename="/folder-name">
+        <BrowserRouter basename="/">
             <div className="App">
                 <Blog />
             </div>
