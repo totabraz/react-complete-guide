@@ -12,7 +12,6 @@ class Layout extends Component {
         }
     }
 
-    
     showSideDrawerHandler = () => {
         this.setState({showSideDrawer: false})
     }
@@ -21,7 +20,7 @@ class Layout extends Component {
         this.setState(
             (prevState) => {return {showSideDrawer: !prevState.showSideDrawer}}
             )
-            // to prevent unspected actions
+            // to prevent  unspected actions
     }
 
     render (){
