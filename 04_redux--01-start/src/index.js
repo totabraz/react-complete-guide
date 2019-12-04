@@ -6,10 +6,12 @@ import { Provider } from 'react-redux'
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+
 import counterReducer from "./store/reducer/counter";
 import resultReducer from "./store/reducer/result";
 
-
+// combineReducers combine which reducers in one. 
+// the application looks the rootReducer as one single reducer.
 const rootReducer = combineReducers({
     ctr: counterReducer,
     res: resultReducer,

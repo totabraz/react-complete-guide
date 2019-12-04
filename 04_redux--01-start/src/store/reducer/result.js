@@ -8,6 +8,7 @@ const initialState = {
 const result =  ( state = initialState, action) => {
     switch (action.type) {
         case actionType.STORE_RESULT:
+            // using concat unless push, you DONT mutate the state;    
             return {
                 ...state,
                     results: state.results.concat({
@@ -24,6 +25,7 @@ const result =  ( state = initialState, action) => {
             //         results: newResults
             //         }
             //     }            
+            // using filter unless splice, you DONT mutate the state;
             const updateResult = state.results.filter(
                 result => (result.id !== action.resultElmentID))
             return {

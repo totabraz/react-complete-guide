@@ -66,6 +66,9 @@ const mapStateToProps = state => {
     }
 }
 
+// a helper function that call store.dispatch behind the scenes as parameter
+// and you can use it on your class as a props:
+//  this.props. ... as: this.props.onIncrementCounter
 const mapDispatchToProps = dispatch => {
     return {
         onIncrementCounter: () => dispatch({ type: actionType.INCREMENT }),
