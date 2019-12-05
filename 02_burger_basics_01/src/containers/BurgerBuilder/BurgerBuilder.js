@@ -19,9 +19,6 @@ class BurgerBuilder extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // ingredients: null,
-            totalPrice: 4,
-            // purchaseable: false,
             purchasing: false,
             loading: false,
             error: null
@@ -47,9 +44,6 @@ class BurgerBuilder extends Component {
     }
 
     updatePurchaseState(ingredients) {
-        // const ingredients = {
-        //     ...this.props.ings
-        // }
         const sum = Object.keys(ingredients)
             .map(ingKey => {
                 return ingredients[ingKey];
@@ -59,42 +53,6 @@ class BurgerBuilder extends Component {
             }, 0)
         return sum > 0
     }
-
-    // addIngredientHandler = (type) => {
-    //     const oldCount = this.props.ings[type];
-    //     const updateCounted = oldCount + 1;
-    //     const updateIngredients = {
-    //         ...this.props.ings
-    //     };
-    //     updateIngredients[type] = updateCounted;
-
-    //     const priceAddition = INGREDIENTS_PRICES[type];
-    //     const oldPrice = this.state.totalPrice;
-    //     const newPrice = oldPrice + priceAddition;
-
-    //     this.setState({ ingredients: updateIngredients, totalPrice: newPrice });
-    //     this.updatePurchaseable(updateIngredients);
-
-    // }
-
-    // removeIngredientHandler = (type) => {
-    //     const oldCount = this.props.ings[type];
-    //     if (oldCount > 0) {
-    //         const updateCounted = oldCount - 1;
-    //         const updateIngredients = {
-    //             ...this.props.ings
-    //         };
-    //         updateIngredients[type] = updateCounted;
-
-    //         const priceDeduction = INGREDIENTS_PRICES[type];
-    //         const oldPrice = this.state.totalPrice;
-    //         const newPrice = oldPrice + priceDeduction;
-
-    //         this.setState({ ingredients: updateIngredients, totalPrice: newPrice });
-    //         this.updatePurchaseable(updateIngredients);
-    //     }
-    // }
-
     purchaseCancelHandler = () => {
         this.setState({ purchasing: false })
     }
