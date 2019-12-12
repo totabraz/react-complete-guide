@@ -10,7 +10,7 @@ import axios from '../../axios-orders'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 
 import { connect } from 'react-redux'
-import * as actionType from '../../store/actions'
+import * as actionType from '../../store/actions/actionTypes'
 
 class BurgerBuilder extends Component {
 
