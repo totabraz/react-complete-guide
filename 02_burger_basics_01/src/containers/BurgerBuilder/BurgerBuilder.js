@@ -10,7 +10,7 @@ import axios from '../../axios-orders'
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 
 import { connect } from 'react-redux'
-import * as actionType from '../../store/actions/actionTypes'
+import * as burgerBuilderActions from '../../store/actions/index'
 
 class BurgerBuilder extends Component {
 
@@ -20,27 +20,12 @@ class BurgerBuilder extends Component {
         super(props);
         this.state = {
             purchasing: false,
-            loading: false,
-            error: null
         }
     }
 
-    componentDidMount = () => {
-        // axios.get('https://react-my-burger-cc06d.firebaseio.com/ingredients.json')
-        //     .then(response => {
-        //         this.setState({ingredients: response.data})
-        //         const sum = Object.keys(response.data)
-        //             .map(respKey => {
-        //                 return response.data[respKey]
-        //             })
-        //             .reduce((sum, el) => {
-        //                 return sum + el
-        //             }, 0)
-        //         this.setState({purchaseable: sum > 0})
-        //     })
-        //     .catch( error =>{
-        //         this.setState({error: true})
-        //     })
+    componentDidMount() { 
+        console.log('[initIngredients]')
+        this.props.onInitIngredients()
     }
 
     updatePurchaseState(ingredients) {
@@ -53,6 +38,7 @@ class BurgerBuilder extends Component {
             }, 0)
         return sum > 0
     }
+
     purchaseCancelHandler = () => {
         this.setState({ purchasing: false })
     }
@@ -75,9 +61,7 @@ class BurgerBuilder extends Component {
         }
         let orderSummary = null
 
-        if (this.state.loading) orderSummary = <Spinner />
-
-        let burger = (this.state.error) ? <p>ingredients can't be loaded</p> : <Spinner />
+        let burger = (this.props.error) ? <p>ingredients can't be loaded</p> : <Spinner />
 
         if (this.props.ings) {
             orderSummary = <OrderSummary
@@ -112,14 +96,17 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
-        price: state.totalPrice
+        price: state.totalPrice,
+        error: state.error,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdd: (ingName) => dispatch({ type: actionType.ADD_INGREDIENT, ingredientName: ingName }),
-        onIngredientRemove: (ingName) => dispatch({ type: actionType.REMOVE_INGREDIENT, ingredientName: ingName }),
+        onIngredientAdd: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
+        onIngredientRemove: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
+
     }
 }
 
