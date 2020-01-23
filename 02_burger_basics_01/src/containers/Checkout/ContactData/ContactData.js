@@ -121,19 +121,39 @@ class ContactData extends Component {
         }
 
         this.props.onOrderBurger(order)
-       
+
     }
 
-    checkValidity(value, rule) {
-        let isValid = true
-        if (!rule) {
-            if (rule.required) isValid = value.trim() !== '' && isValid
-            if (rule.minLength) isValid = value.length >= rule.minLength && isValid
-            if (rule.maxLength) isValid = value.length <= rule.maxLength && isValid
+    checkValidity(value, rules) {
+        let isValid = true;
+        if (!rules) {
+            return true;
         }
-        return isValid
-    }
 
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        if (rules.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        return isValid;
+    }
     inputChangedHandler = (event, elementID) => {
         const updateOrderForm = { ...this.state.orderForm }
         updateOrderForm[elementID].value = event.target.value
@@ -158,7 +178,7 @@ class ContactData extends Component {
         let form = (
             <form onSubmit={this.orderHandler}>
                 {
-                    formElementArray.map(formElement => {
+                    formElementArray.map(formElement => {                        
                         return (
                             <Input
                                 key={formElement.id}
@@ -199,8 +219,8 @@ const mapStateToProps = state => {
 
 const mapDistpachToProps = dispatch => {
     return {
-        onOrderBurger: (orderData) => { dispatch(actions.purchaseBurger(orderData))}
+        onOrderBurger: (orderData) => { dispatch(actions.purchaseBurger(orderData)) }
     }
 }
 
-export default connect(mapStateToProps,mapDistpachToProps)(withErrorHandler(ContactData, axios));
+export default connect(mapStateToProps, mapDistpachToProps)(withErrorHandler(ContactData, axios));

@@ -1,7 +1,7 @@
 import React from 'react';
 // import logo from './logo.svg'; 
 import './App.css';
-
+import Auth from './containers/Auth/Auth'
 
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Layout from './hoc/Layout/Layout'
@@ -17,6 +17,7 @@ function App() {
           <Switch>
               <Route path="/checkout" component={Checkout} />
               <Route path="/orders" component={Orders} />
+              <Route path="/auth" component={Auth} />
               <Route path="/" component={BurgerBuilder} />
           </Switch>
       </Layout>
