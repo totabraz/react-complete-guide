@@ -3,10 +3,10 @@ import classes from './BuildControls.module.css'
 import BuildControl from './BuildControl/BuildControl'
 
 const controls = [
-    { label: 'Salad',  type: 'salad' },
-    { label: 'Bacon',  type: 'bacon' },
+    { label: 'Salad', type: 'salad' },
+    { label: 'Bacon', type: 'bacon' },
     { label: 'Cheese', type: 'cheese' },
-    { label: 'Meat',   type: 'meat' },
+    { label: 'Meat', type: 'meat' },
 ];
 
 const buildControls = (props) => (
@@ -17,14 +17,14 @@ const buildControls = (props) => (
                 label={ctrl.label}
                 added={() => props.ingredientsAdded(ctrl.type)}
                 removed={() => props.ingredientsRemoved(ctrl.type)}
-                disabled={props.disabled[ctrl.type]}/>
+                disabled={props.disabled[ctrl.type]} />
         ))}
         <button
             className={classes.OrderButton}
             disabled={!props.purchaseable}
-            onClick={props.ordered}
-            >
-            ORDER NOW
+            onClick={props.ordered}>
+                {props.isAuthenticated? "ORDER NOW" : "SIGN UP TO ORDER" }
+            
         </button>
     </div>
 );
