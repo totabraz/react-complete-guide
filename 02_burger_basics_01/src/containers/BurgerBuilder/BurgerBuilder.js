@@ -23,7 +23,6 @@ class BurgerBuilder extends Component {
 
 
     componentDidMount() {
-        console.log('[initIngredients]')
         this.props.onInitIngredients()
     }
 
@@ -59,7 +58,6 @@ class BurgerBuilder extends Component {
         const disableInfo = {
             ...this.props.ings
         }
-        console.log(this.props.ings)
         for (let key in disableInfo) {
             disableInfo[key] = disableInfo[key] <= 0
         }

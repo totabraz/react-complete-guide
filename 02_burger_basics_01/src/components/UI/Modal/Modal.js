@@ -11,7 +11,6 @@ class Modal extends Component {
     }
 
     componentDidUpdate(){
-        console.log('[OrderSummary] componentDidUpdate()')
     }
 
     render () {

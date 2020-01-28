@@ -7,12 +7,12 @@ export const authStart = () => {
         loading: true,
     }
 }
-export const authSuccess = (token, userID) => {
+export const authSuccess = (token, userId) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         loading: false,
         token: token,
-        userID: userID,
+        userId: userId,
 
     }
 }
@@ -61,8 +61,8 @@ export const authCheckState = () => {
             if (expirationDate <= new Date()) {
                 dispatch(authSuccess())
             } else {
-                const userID = localStorage.getItem('userId')
-                dispatch(authSuccess(token, userID))
+                const userId = localStorage.getItem('userId')
+                dispatch(authSuccess(token, userId))
                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime())/1000))
             }
         }
