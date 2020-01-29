@@ -5,8 +5,6 @@ import classes from './NavigationItems.module.css';
 import NavigationItem from './NavigationItem/NavigationItem';
 
 const navigationItems = (props) => {
-    console.log("navigationItems: " + props.isAuthenticated);
-    
     return (
         <ul className={classes.NavigationItems}>
             <NavigationItem link="/" exact active>Burger Builder</NavigationItem>
