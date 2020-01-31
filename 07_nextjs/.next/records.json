@@ -1,0 +1,35 @@
+{
+  "modules": {
+    "byIdentifier": {
+      "multi next-client-pages-loader?page=%2F_app&absolutePagePath=next%2Fdist%2Fpages%2F_app! node_modules/next/dist/client/router.js": 0
+    },
+    "usedIds": {
+      "0": 0
+    }
+  },
+  "chunks": {
+    "byName": {
+      "commons": 0,
+      "static/runtime/webpack.js": 1,
+      "framework": 2,
+      "static/0A_o7M0S8t3M_eGBZS5CN/pages/_app.js": 3,
+      "static/0A_o7M0S8t3M_eGBZS5CN/pages/_error.js": 4,
+      "static/0A_o7M0S8t3M_eGBZS5CN/pages/auth.js": 5,
+      "static/0A_o7M0S8t3M_eGBZS5CN/pages/index.js": 6,
+      "static/runtime/main.js": 7,
+      "static/runtime/polyfills.js": 8
+    },
+    "bySource": {},
+    "usedIds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  }
+}
