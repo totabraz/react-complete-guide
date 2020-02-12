@@ -14,10 +14,24 @@
 }
 
 .ModalOpen {
-    animation: openModal 0.4s ease-out forwards;
+    
 }
 
 .ModalClosed {
+    
+}
+
+
+.fade-side-enter {
+
+}
+.fade-side-enter-active {
+    animation: openModal 0.4s ease-out forwards;
+}
+.fade-side-exit {
+
+}
+.fade-side-exit-active {
     animation: closeModal 0.4s ease-out forwards
 }
 
