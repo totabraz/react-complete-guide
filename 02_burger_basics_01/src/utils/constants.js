@@ -1,0 +1,1 @@
+export const URL_API_FIREBASE =  "https://identitytoolkit.googleapis.com/v1/"

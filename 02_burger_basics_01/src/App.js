@@ -3,11 +3,6 @@ import './App.css';
 import Layout from './hoc/Layout/Layout'
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import * as actions from './store/actions/index'
-import Auth from './containers/Auth/Auth'
-import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
-import Checkout from './containers/Checkout/Checkout';
-import Orders from './containers/Orders/Orders';
-import Logout from './containers/Auth/Logout/Logout';
 import { connect } from 'react-redux';
 import asyncComponent from "./hoc/asyncComponent/asyncComponent";
 
