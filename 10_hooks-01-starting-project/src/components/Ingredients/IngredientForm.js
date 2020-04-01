@@ -4,17 +4,23 @@ import Card from "../UI/Card";
 import "./IngredientForm.css";
 
 const IngredientForm = React.memo(props => {
-  // #IMPORTANT# - You have to use it in a function component body! - #IMPORTANT#
+  // #IMPORTANT# -------- START ------------- #IMPORTANT#
+  // Things about useState()
+  // - You HAVE TO use it in a function component body!
+  // - You HAVE TO on the root component.
+  // - You CAN`T use inside a conditions
+  // #IMPORTANT# --------- END ------------- #IMPORTANT#
   // the params is the default state, cam be a array, object, boolean.
   // but in Class component, HAVE TO BE a object.
-  const inputState = useState({
-    title: "",
-    amount: ""
-  });
+  const [inputTitle, setInputTitle] = useState("");
+  const [inputAmount, setInputAmount] = useState("");
 
   const submitHandler = event => {
     event.preventDefault();
-    // ...
+    props.onAddIngredients({
+      title: inputTitle,
+      amount: inputAmount
+    });
   };
 
   return (
@@ -26,15 +32,8 @@ const IngredientForm = React.memo(props => {
             <input
               type="text"
               id="title"
-              value={inputState[0].title}
-              onChange={event => {
-                const newTitle = event.target.value;
-
-                inputState[1](prevInputState => ({
-                  title: newTitle,
-                  amount: prevInputState.amount
-                }));
-              }}
+              value={inputTitle}
+              onChange={event => setInputTitle(event.target.value)}
             />
           </div>
           <div className="form-control">
@@ -42,14 +41,8 @@ const IngredientForm = React.memo(props => {
             <input
               type="number"
               id="amount"
-              value={inputState[0].amount}
-              onChange={event => {
-                const newAmount = event.target.value;
-                inputState[1](prevInputState => ({
-                  amount: newAmount,
-                  title: prevInputState.title
-                }));
-              }}
+              value={inputAmount}
+              onChange={event => setInputAmount(event.target.value)}
             />
           </div>
           <div className="ingredient-form__actions">
