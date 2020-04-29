@@ -1,73 +1,74 @@
 import React, { useState, useCallback } from "react";
-
+import ErrorModal from "../UI/ErrorModal";
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
 import IngredientList from "./IngredientList";
 
-const API_ING = "https://todoingredients.firebaseio.com/todoingredients.json";
+const API_INGREDIENTS =
+    "https://todoingredients.firebaseio.com/todoingredients";
 
 const Ingredients = () => {
     const [userIngredients, setUserIngredients] = useState([]);
-    /**
-	 *
-	 
-    useEffect(() => {
-        fetch(API_ING)
-            .then((response) => response.json())
-            .then((responseData) => {
-                const ingredients = Object.keys(responseData).map((key) => ({
-                    id: key,
-                    title: responseData[key].title,
-                    amount: responseData[key].amount,
-                }));
-                setUserIngredients(ingredients);
-            });
-    }, []);
-    // Using [] as second parametr
-    // it's act as componentDidMount,
-	// running one time once
-	
-	 */
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const addIngredientHandler = (ingredient) => {
-        fetch(API_ING, {
-            method: "POST",
-            body: JSON.stringify(ingredient),
-            headers: { "Content-type": "application/json" },
-        })
-            .then((response) => {
-                return response.json();
+        if (!ingredient.title) {
+            setError("Add alguma informação");
+        } else {
+            setIsLoading(true);
+            fetch(API_INGREDIENTS, {
+                method: "POST",
+                body: JSON.stringify(ingredient),
+                headers: { "Content-type": "application/json" },
             })
-            .then((responseData) => {
-                console.log(responseData);
-
-                setUserIngredients((prevIngrendients) => [
-                    ...prevIngrendients,
-                    { id: responseData.name, ...ingredient },
-                ]);
-            });
+                .then((response) => {
+                    setIsLoading(false);
+                    return response.json();
+                })
+                .then((responseData) => {
+                    setUserIngredients((prevIngrendients) => [
+                        ...prevIngrendients,
+                        { id: responseData.name, ...ingredient },
+                    ]);
+                })
+                .catch((error) => {
+                    setError(error.message);
+                });
+        }
     };
 
     const removeIngredientHandler = (id) => {
-        fetch(
-            `https://todoingredients.firebaseio.com/todoingredients/${id}.json`,
-            {
-                method: "DELETE",
-            }
-        ).then((response) => {
-            setUserIngredients((prevIngrendients) => {
-                return prevIngrendients.filter((ing) => ing.id !== id);
+        setIsLoading(true);
+        fetch(`${API_INGREDIENTS}/${id}.json`, {
+            method: "DELETE",
+        })
+            .then((response) => {
+                setIsLoading(false);
+                setUserIngredients((prevIngrendients) => {
+                    return prevIngrendients.filter((ing) => ing.id !== id);
+                });
+            })
+            .catch((error) => {
+                setError(error.message);
             });
-        });
     };
 
     const filteredIngredientsHandler = useCallback((filteredIngredients) => {
         setUserIngredients(filteredIngredients);
     }, []);
 
+    const clearError = () => {
+        setError(null);
+    };
+
     return (
         <div className="App">
-            <IngredientForm onAddIngredients={addIngredientHandler} />
+            {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
+            <IngredientForm
+                onAddIngredients={addIngredientHandler}
+                loading={isLoading}
+            />
             <section>
                 <Search onLoadIngredients={filteredIngredientsHandler} />
                 <IngredientList
