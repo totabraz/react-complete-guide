@@ -49,14 +49,22 @@ const Ingredients = () => {
     };
 
     const removeIngredientHandler = (id) => {
-        setUserIngredients((prevIngrendients) => {
-            return prevIngrendients.filter((ing) => ing.id !== id);
+        fetch(
+            `https://todoingredients.firebaseio.com/todoingredients/${id}.json`,
+            {
+                method: "DELETE",
+            }
+        ).then((response) => {
+            setUserIngredients((prevIngrendients) => {
+                return prevIngrendients.filter((ing) => ing.id !== id);
+            });
         });
     };
 
     const filteredIngredientsHandler = useCallback((filteredIngredients) => {
         setUserIngredients(filteredIngredients);
     }, []);
+
     return (
         <div className="App">
             <IngredientForm onAddIngredients={addIngredientHandler} />
