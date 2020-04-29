@@ -1,19 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from "react";
+import Card from "../UI/Card";
+import "./Search.css";
 
-import Card from '../UI/Card';
-import './Search.css';
+const API_ING = "https://todoingredients.firebaseio.com/todoingredients.json";
+const Search = React.memo((props) => {
+    const { onLoadIngredients } = props;
+    const [enteredFilter, setEnteredFilter] = useState("");
 
-const Search = React.memo(props => {
-  return (
-    <section className="search">
-      <Card>
-        <div className="search-input">
-          <label>Filter by Title</label>
-          <input type="text" />
-        </div>
-      </Card>
-    </section>
-  );
+    const inputRef = useRef();
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (enteredFilter === inputRef.current.value) {
+                const query =
+                    enteredFilter.length === 0
+                        ? ""
+                        : '?orderBy="title"&equalTo="' + enteredFilter + '"';
+                fetch(API_ING + query)
+                    .then((response) => response.json())
+                    .then((responseData) => {
+                        const loadedIngredients = [];
+                        for (const key in responseData) {
+                            loadedIngredients.push({
+                                id: key,
+                                title: responseData[key].title,
+                                amount: responseData[key].amount,
+                            });
+                        }
+                        onLoadIngredients(loadedIngredients);
+                    });
+            }
+        }, 500);
+        // cleanup funciton
+        // if you have [] as dependencies (if the effect only runs once)
+        // the cleanup runs when the components gets unmounted
+        return () => {
+            // !important
+            // it's makes the app more efficient
+            // to improve only one timeout running per time.
+            clearTimeout(timer);
+        };
+    }, [enteredFilter, onLoadIngredients]);
+
+    return (
+        <section className="search">
+            <Card>
+                <div className="search-input">
+                    <label>Filter by Title</label>
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        onChange={(event) =>
+                            setEnteredFilter(event.target.value)
+                        }
+                    />
+                </div>
+            </Card>
+        </section>
+    );
 });
 
 export default Search;

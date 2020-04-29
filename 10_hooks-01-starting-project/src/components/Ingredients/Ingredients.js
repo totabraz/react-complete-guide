@@ -1,37 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
 import IngredientList from "./IngredientList";
 
-function Ingredients() {
-  const [userIngredients, setUserIngredients] = useState([]);
+const API_ING = "https://todoingredients.firebaseio.com/todoingredients.json";
 
-  const addIngredientHandler = ingredient => {
-    setUserIngredients(prevIngrendients => [
-      ...prevIngrendients,
-      { id: Math.random().toString(), ...ingredient }
-    ]);
-  };
+const Ingredients = () => {
+    const [userIngredients, setUserIngredients] = useState([]);
+    /**
+	 *
+	 
+    useEffect(() => {
+        fetch(API_ING)
+            .then((response) => response.json())
+            .then((responseData) => {
+                const ingredients = Object.keys(responseData).map((key) => ({
+                    id: key,
+                    title: responseData[key].title,
+                    amount: responseData[key].amount,
+                }));
+                setUserIngredients(ingredients);
+            });
+    }, []);
+    // Using [] as second parametr
+    // it's act as componentDidMount,
+	// running one time once
+	
+	 */
 
-  const removeIngredientHandler = id => {
-    setUserIngredients(prevIngrendients => {
-      return prevIngrendients.filter(ing => ing.id !== id);
-    });
-  };
+    const addIngredientHandler = (ingredient) => {
+        fetch(API_ING, {
+            method: "POST",
+            body: JSON.stringify(ingredient),
+            headers: { "Content-type": "application/json" },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((responseData) => {
+                console.log(responseData);
 
-  return (
-    <div className="App">
-      <IngredientForm onAddIngredients={addIngredientHandler} />
-      <section>
-        <Search />
-        <IngredientList
-          onRemoveItem={removeIngredientHandler}
-          ingredients={userIngredients}
-        />
-      </section>
-    </div>
-  );
-}
+                setUserIngredients((prevIngrendients) => [
+                    ...prevIngrendients,
+                    { id: responseData.name, ...ingredient },
+                ]);
+            });
+    };
+
+    const removeIngredientHandler = (id) => {
+        setUserIngredients((prevIngrendients) => {
+            return prevIngrendients.filter((ing) => ing.id !== id);
+        });
+    };
+
+    const filteredIngredientsHandler = useCallback((filteredIngredients) => {
+        setUserIngredients(filteredIngredients);
+    }, []);
+    return (
+        <div className="App">
+            <IngredientForm onAddIngredients={addIngredientHandler} />
+            <section>
+                <Search onLoadIngredients={filteredIngredientsHandler} />
+                <IngredientList
+                    onRemoveItem={removeIngredientHandler}
+                    ingredients={userIngredients}
+                />
+            </section>
+        </div>
+    );
+};
 
 export default Ingredients;
